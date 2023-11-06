@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        // Set JAVA_HOME explicitly within the pipeline
+        JAVA_HOME = '/usr/lib/jvm/java-1.8.0-amazon-corretto'
+    }
     tools {
         jdk 'Java 8'
         maven 'maven_3_5_2'
