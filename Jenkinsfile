@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         // Specify the JDK tool name you configured in Global Tool Configuration
-        jdk 'Java 8'
+        jdk 'JDK 8'
         maven 'maven_3_5_2'
     }
     stages {
