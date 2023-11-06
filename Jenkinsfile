@@ -1,11 +1,18 @@
 pipeline {
     agent any
     tools {
-        // Specify the JDK tool name you configured in Global Tool Configuration
-        jdk 'JDK 8'
+        jdk 'Java 8'
         maven 'maven_3_5_2'
     }
     stages {
+        stage('Debug Environment') {
+            steps {
+                script {
+                    echo "JAVA_HOME: ${env.JAVA_HOME}"
+                    echo "PATH: ${env.PATH}"
+                }
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
