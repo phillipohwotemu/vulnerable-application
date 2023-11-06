@@ -1,21 +1,30 @@
 pipeline {
     agent any
+    environment {
+        // Define your JAVA_HOME environment variable
+        JAVA_HOME = '/usr/lib/jvm/java-1.8.0-amazon-corretto'
+    }
     tools {
-        maven 'maven_3_5_2'
+        // Define the Maven tool
+        maven 'Maven'
     }
     stages {
-        stage('Set JAVA_HOME') {
+        stage('Checkout') {
             steps {
-                script {
-                    def jdkHome = tool name: 'JDK 8', type: 'jdk'
-                    env.JAVA_HOME = "${jdkHome}/bin"
-                    env.PATH = "${env.JAVA_HOME}:${env.PATH}"
-                }
+                // Checkout your source code from Git
+                checkout scm
             }
         }
-        stage('CompileandRunSonarAnalysis') {
+        stage('Build and Analyze') {
             steps {
-                sh 'mvn clean verify sonar:sonar -Dsonar.projectkey=wizebird -Dsonar.organization=wizebird -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=752c540a36bc5c7763eae3e764f380acc80dde4a'
+                // Compile and run SonarQube analysis
+                sh '''
+                    mvn clean verify sonar:sonar \
+                    -Dsonar.projectKey=wizebird \
+                    -Dsonar.organization=wizebird \
+                    -Dsonar.host.url=https://sonarcloud.io \
+                    -Dsonar.login=752c540a36bc5c7763eae3e764f380acc80dde4a
+                '''
             }
         }
     }
