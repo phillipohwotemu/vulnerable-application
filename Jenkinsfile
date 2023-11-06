@@ -1,23 +1,18 @@
 pipeline {
     agent any
-    environment {
-        // Define your JAVA_HOME environment variable
-        JAVA_HOME = '/usr/lib/jvm/java-1.8.0-amazon-corretto'
-    }
     tools {
-        // Define the Maven tool
+        // Specify the JDK tool name you configured in Global Tool Configuration
+        jdk 'Java 8'
         maven 'maven_3_5_2'
     }
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your source code from Git
                 checkout scm
             }
         }
         stage('Build and Analyze') {
             steps {
-                // Compile and run SonarQube analysis
                 sh '''
                     mvn clean verify sonar:sonar \
                     -Dsonar.projectKey=wizebird \
