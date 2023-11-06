@@ -6,7 +6,7 @@ pipeline {
     }
     tools {
         // Define the Maven tool
-        maven 'Maven'
+        maven 'maven_3_5_2'
     }
     stages {
         stage('Checkout') {
