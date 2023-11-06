@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Specify the name of the JDK added in Jenkins
-        jdk '/usr/lib/jvm/java-1.8.0-amazon-corretto'
+        Java 8 '/usr/lib/jvm/java-1.8.0-amazon-corretto'
     }
 
     stages {
