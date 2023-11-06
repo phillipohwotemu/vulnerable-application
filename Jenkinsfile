@@ -1,37 +1,12 @@
 pipeline {
-    agent any
-
+    any agent
     tools {
-        // Install the Maven version configured as "M3" and add it to the path.
-        maven "maven_3_5_2"
+        Maven 'maven_3_5_2'
     }
-
-    stages {
-        stage('Build') {
+    stages{
+        stage('CompileandRunSonarAnalysis') {
             steps {
-                // Get some code from a GitHub repository
-                git 'https://github.com/phillipohwotemu/terraform-ec2-jenkins-aws-k8s-infra-creation.git'
-
-                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
-
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
-            }
-
-            post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
-                success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
-                }
-            }
-            stage ("CompileandRunSolarAnalysis") {
-                
-                steps {
-                    sh 'mvn clean verify sonar: -Dsonar.projectkey=kloud45 -Dsonar.organization=kloud45 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a3c6729c99118b3abc0a7f2beb5cb2b817ac0b18'
-                }
+                sh 'mvn clean verify sonar: -Dsonar.projectkey=kloud45 -Dsonar.organization=kloud45 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a3c6729c99118b3abc0a7f2beb5cb2b817ac0b18'
             }
         }
     }
