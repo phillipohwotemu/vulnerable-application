@@ -52,11 +52,6 @@
 		</profile>
 	</profiles>
 
-	<properties>
-		<sonar.organization>wizebird</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-	</properties>
-
 	<!-- ... (the rest of your pom.xml file remains unchanged) ... -->
 
 </project>
